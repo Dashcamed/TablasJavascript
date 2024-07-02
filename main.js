@@ -138,6 +138,9 @@ ingredientList.addEventListener('click', (e) => {
 
 
 //funciones crear recetas
+document.addEventListener('DOMContentLoaded', () =>  {
+    getRecipes();
+});
 
 let recipes = [];
 
@@ -185,6 +188,60 @@ const addRecipe = (recipe) => {
     saveRecipeStorage(recipes);
 };
 
+const showRecipes = () => {
+    printRecipe.innerHTML='';
+    recipes.forEach(recipe => {
+        const div = document.createElement("div");
+        div.className = "table-responsive";
+        div.innerHTML = `
+        <table class="table table-success table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Nombre receta:</th>
+                    <th colspan="4">${recipe.id}</th>
+                </tr>
+                <tr>
+                    <th>Gramaje:</th>
+                    <th colspan="4">${recipe.recipeGrams}</th>
+                </tr>
+                <tr>
+                    <th>Unidades:</th>
+                    <th colspan="4">${recipe.recipeUnits}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>Id:</th>
+                    <th>Ingredientes:</th>
+                    <th>Porcentaje:</th>
+                    <th>Peso de ingrediente:</th>
+                    <th>Costo de ingrediente:</th>
+                </tr>
+                ${recipe.recipeIngredients.map(ingredient => `
+                    <tr>
+                        <td>${ingredient.id}</td>
+                        <td>${ingredient.name}</td>
+                        <td>${ingredient.porcentage}%</td>
+                        <td>${recipe.totalRound.find(item => item.id === ingredient.id).PesoReceta}</td>
+                        <td>$${recipe.totalPrice.find(item => item.id === ingredient.id).precioReceta.toFixed(1)}</td>
+                    </tr>
+                `).join('')}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td><button class="btn btn-danger" id="${recipe.id}" >borrar receta</button></td>
+                    <th colspan="2">Totales: </th>
+                    <th>Peso de la receta: ${recipe.totalRound.reduce((acc, item) => acc + item.PesoReceta, 0)} gramos</th>
+                    <th>Costo total: $${recipe.totalPrice.reduce((acc, item) => acc + item.precioReceta, 0).toFixed(2)}</th>
+                </tr>
+
+            </tfoot>
+        </table>
+        `;
+        printRecipe.appendChild(div);
+    });
+}
+
 const saveRecipeStorage = (recipes) => {
     localStorage.setItem('recipes', JSON.stringify(recipes));
 };
@@ -198,6 +255,7 @@ const getRecipes = () => {
     if (localStorage.getItem('recipes')) {
         recipes = getRecipeStorage();
     }
+    showRecipes();
 };
 
 // listener crear receta
@@ -213,7 +271,7 @@ btnCreateRecipe.addEventListener('click', (e) => {
         const ingredientName = tr.querySelector('td:first-child').innerText;
         const ingredient = ingredients.find(ing => ing.name === ingredientName);
         const porcentage = tr.querySelector('.porcentage-ingredient').value;
-        recipeIngredients.push({ id: ingredient.id, porcentage: Number(porcentage) });
+        recipeIngredients.push({ id: ingredient.id, name: ingredient.name, porcentage: Number(porcentage), price: ingredient.price});
     });
 
     const totalPercentage = recipeIngredients.reduce((acc, item) => acc + item.porcentage, 0);
@@ -222,31 +280,33 @@ btnCreateRecipe.addEventListener('click', (e) => {
     const totalRound = recipeIngredients.map((item) => {
         return {
             id: item.id,
-            PesoReceta: Math.round((recipeGrams / totalPercentage) * (item.porcentage * recipeUnits))
+            PesoReceta: Math.round((recipeGrams / totalPercentage) * (item.porcentage * recipeUnits)),
+            price: item.price
         };
     });
 
-    totalRound.forEach((item, index) => {
-        const tr = document.querySelectorAll('.tr-ingredients')[index];
-        if (tr) {
-            tr.querySelector('.ingredient-grams').innerText = item.PesoReceta;
-            const ingredient = ingredients.find(ing => ing.id === item.id);
-            if (ingredient) {
-                tr.querySelector('.ingredient-price').innerText = Number(((ingredient.price * item.PesoReceta) / 1000).toFixed(2));
-            }
+    const totalPrice = totalRound.map((item)=> {
+        return {
+            id: item.id,
+            precioReceta: (item.price * item.PesoReceta) / 1000
         }
-    });
+    })
+
+    totalRound.forEach((item,index) => {
+        const tr = document.querySelectorAll('.tr-ingredients')[index];
+        tr.querySelector('.ingredient-grams').innerText = item.PesoReceta;
+    })
+
+    totalPrice.forEach((item,index) => {
+        const tr = document.querySelectorAll('.tr-ingredients')[index];
+        tr.querySelector('.ingredient-price').innerText = item.precioReceta;
+    })
 
     console.log(totalRound);
 
-    const recipe = {...createRecipe(recipeName, Number(recipeGrams), Number(recipeUnits), recipeIngredients),totalRound};
+    const recipe = {...createRecipe(recipeName, Number(recipeGrams), Number(recipeUnits), recipeIngredients),totalRound, totalPrice};
 
     addRecipe(recipe);
-
-    const option = document.createElement('option');
-        option.value = recipe.id
-        option.textContent = recipe.id
-        selectorRecipes.appendChild(option);
 
     Toastify({
         text: "¡Receta creada exitosamente!",
@@ -256,15 +316,89 @@ btnCreateRecipe.addEventListener('click', (e) => {
             background: "blue"
         }
     }).showToast();
+    showRecipes()
 });
 
-// imprimir receta en construccion...
-const printRecipe = document.getElementById('imprimir-container');
-const selectorRecipes = document.getElementById('selector-recipe');
+// mostrar recetario
 
-// const printRecipes = () => {
-//     recipes.forEach((item, index) => {
-//         const selectedRecipe = recipes.find((recipe) => recipe.id == selector.value);
-//         const div = document.createElement('div')
-//     })
-// };
+const printRecipe = document.getElementById('imprimir-container');
+
+const btnPrintRecipes = document.getElementById('print-recipes');
+const printRecipes = () => {
+    recipes.forEach(recipe => {
+        const div = document.createElement("div");
+        div.className = "table-responsive";
+        div.innerHTML = `
+        <table class="table table-success table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Nombre receta:</th>
+                    <th colspan="4">${recipe.id}</th>
+                </tr>
+                <tr>
+                    <th>Gramaje:</th>
+                    <th colspan="4">${recipe.recipeGrams}</th>
+                </tr>
+                <tr>
+                    <th>Unidades:</th>
+                    <th colspan="4">${recipe.recipeUnits}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>Id:</th>
+                    <th>Ingredientes:</th>
+                    <th>Porcentaje:</th>
+                    <th>Peso de ingrediente:</th>
+                    <th>Costo de ingrediente:</th>
+                </tr>
+                ${recipe.recipeIngredients.map(ingredient => `
+                    <tr>
+                        <td>${ingredient.id}</td>
+                        <td>${ingredient.name}</td>
+                        <td>${ingredient.porcentage}%</td>
+                        <td>${recipe.totalRound.find(item => item.id === ingredient.id).PesoReceta}</td>
+                        <td>$${recipe.totalPrice.find(item => item.id === ingredient.id).precioReceta.toFixed(2)}</td>
+                    </tr>
+                `).join('')}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td><button class="btn btn-danger" id="${recipe.id}" >borrar receta</button></td>
+                    <th colspan="2">Totales: </th>
+                    <th>Peso de la receta: ${recipe.totalRound.reduce((acc, item) => acc + item.PesoReceta, 0)} gramos</th>
+                    <th>Costo total: $${recipe.totalPrice.reduce((acc, item) => acc + item.precioReceta, 0).toFixed(1)}</th>
+                </tr>
+            </tfoot>
+        </table>
+        `;
+        printRecipe.appendChild(div);
+    });
+};
+
+btnPrintRecipes.addEventListener('click', ()=>{
+    printRecipes();
+});
+
+const deleteRecipe = (id) => {
+    recipes.forEach((recipe, index) => {
+        if (recipe.id === id) {
+            recipes.splice(index, 1);
+        }
+    });
+    saveRecipeStorage(recipes);
+    showRecipes();
+};
+
+printRecipe.addEventListener('click', (e) => {
+    deleteRecipe(e.target.id)
+    Toastify({
+        text: "¡Receta eliminada permanentemente!",
+        duration: 3000,
+        position: "center",
+        style: {
+            background: "red"
+        }
+    }
+    ).showToast();
+});
