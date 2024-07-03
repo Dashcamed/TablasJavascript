@@ -324,61 +324,7 @@ btnCreateRecipe.addEventListener('click', (e) => {
 const printRecipe = document.getElementById('imprimir-container');
 
 const btnPrintRecipes = document.getElementById('print-recipes');
-const printRecipes = () => {
-    recipes.forEach(recipe => {
-        const div = document.createElement("div");
-        div.className = "table-responsive";
-        div.innerHTML = `
-        <table class="table table-success table-hover">
-            <thead class="table-dark">
-                <tr>
-                    <th>Nombre receta:</th>
-                    <th colspan="4">${recipe.id}</th>
-                </tr>
-                <tr>
-                    <th>Gramaje:</th>
-                    <th colspan="4">${recipe.recipeGrams}</th>
-                </tr>
-                <tr>
-                    <th>Unidades:</th>
-                    <th colspan="4">${recipe.recipeUnits}</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th>Id:</th>
-                    <th>Ingredientes:</th>
-                    <th>Porcentaje:</th>
-                    <th>Peso de ingrediente:</th>
-                    <th>Costo de ingrediente:</th>
-                </tr>
-                ${recipe.recipeIngredients.map(ingredient => `
-                    <tr>
-                        <td>${ingredient.id}</td>
-                        <td>${ingredient.name}</td>
-                        <td>${ingredient.porcentage}%</td>
-                        <td>${recipe.totalRound.find(item => item.id === ingredient.id).PesoReceta}</td>
-                        <td>$${recipe.totalPrice.find(item => item.id === ingredient.id).precioReceta.toFixed(2)}</td>
-                    </tr>
-                `).join('')}
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td><button class="btn btn-danger" id="${recipe.id}" >borrar receta</button></td>
-                    <th colspan="2">Totales: </th>
-                    <th>Peso de la receta: ${recipe.totalRound.reduce((acc, item) => acc + item.PesoReceta, 0)} gramos</th>
-                    <th>Costo total: $${recipe.totalPrice.reduce((acc, item) => acc + item.precioReceta, 0).toFixed(1)}</th>
-                </tr>
-            </tfoot>
-        </table>
-        `;
-        printRecipe.appendChild(div);
-    });
-};
 
-btnPrintRecipes.addEventListener('click', ()=>{
-    printRecipes();
-});
 
 const deleteRecipe = (id) => {
     recipes.forEach((recipe, index) => {
@@ -399,6 +345,5 @@ printRecipe.addEventListener('click', (e) => {
         style: {
             background: "red"
         }
-    }
-    ).showToast();
+    }).showToast();
 });
