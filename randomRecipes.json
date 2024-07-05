@@ -1,0 +1,231 @@
+
+[
+    {
+        "id": "pan integral",
+        "recipeGrams": 650,
+        "recipeUnits": 1,
+        "recipeIngredients": [
+            {
+                "id": "6233230653564",
+                "name": "harina",
+                "porcentage": 35,
+                "price": 900
+            },
+            {
+                "id": "26760561153552",
+                "name": "harina integral",
+                "porcentage": 65,
+                "price": 1200
+            },
+            {
+                "id": "17651651642176",
+                "name": "sal",
+                "porcentage": 2,
+                "price": 300
+            },
+            {
+                "id": "13626152646237",
+                "name": "agua",
+                "porcentage": 70,
+                "price": 60
+            },
+            {
+                "id": "4535560051677",
+                "name": "levadura",
+                "porcentage": 1,
+                "price": 5000
+            }
+        ],
+        "totalRound": [
+            {
+                "id": "6233230653564",
+                "PesoReceta": 132,
+                "price": 900
+            },
+            {
+                "id": "26760561153552",
+                "PesoReceta": 244,
+                "price": 1200
+            },
+            {
+                "id": "17651651642176",
+                "PesoReceta": 8,
+                "price": 300
+            },
+            {
+                "id": "13626152646237",
+                "PesoReceta": 263,
+                "price": 60
+            },
+            {
+                "id": "4535560051677",
+                "PesoReceta": 4,
+                "price": 5000
+            }
+        ],
+        "totalPrice": [
+            {
+                "id": "6233230653564",
+                "precioReceta": 118.8
+            },
+            {
+                "id": "26760561153552",
+                "precioReceta": 292.8
+            },
+            {
+                "id": "17651651642176",
+                "precioReceta": 2.4
+            },
+            {
+                "id": "13626152646237",
+                "precioReceta": 15.78
+            },
+            {
+                "id": "4535560051677",
+                "precioReceta": 20
+            }
+        ]
+    },
+    {
+        "id": "pan de molde",
+        "recipeGrams": 600,
+        "recipeUnits": 1,
+        "recipeIngredients": [
+            {
+                "id": "6233230653564",
+                "name": "harina",
+                "porcentage": 100,
+                "price": 900
+            },
+            {
+                "id": "17651651642176",
+                "name": "sal",
+                "porcentage": 2,
+                "price": 300
+            },
+            {
+                "id": "13626152646237",
+                "name": "agua",
+                "porcentage": 65,
+                "price": 60
+            },
+            {
+                "id": "4535560051677",
+                "name": "levadura",
+                "porcentage": 1,
+                "price": 5000
+            }
+        ],
+        "totalRound": [
+            {
+                "id": "6233230653564",
+                "PesoReceta": 357,
+                "price": 900
+            },
+            {
+                "id": "17651651642176",
+                "PesoReceta": 7,
+                "price": 300
+            },
+            {
+                "id": "13626152646237",
+                "PesoReceta": 232,
+                "price": 60
+            },
+            {
+                "id": "4535560051677",
+                "PesoReceta": 4,
+                "price": 5000
+            }
+        ],
+        "totalPrice": [
+            {
+                "id": "6233230653564",
+                "precioReceta": 321.3
+            },
+            {
+                "id": "17651651642176",
+                "precioReceta": 2.1
+            },
+            {
+                "id": "13626152646237",
+                "precioReceta": 13.92
+            },
+            {
+                "id": "4535560051677",
+                "precioReceta": 20
+            }
+        ]
+    },
+    {
+        "id": "baguette",
+        "recipeGrams": 360,
+        "recipeUnits": 1,
+        "recipeIngredients": [
+            {
+                "id": "6233230653564",
+                "name": "harina",
+                "porcentage": 90,
+                "price": 900
+            },
+            {
+                "id": "26760561153552",
+                "name": "harina integral",
+                "porcentage": 10,
+                "price": 1200
+            },
+            {
+                "id": "17651651642176",
+                "name": "sal",
+                "porcentage": 2,
+                "price": 300
+            },
+            {
+                "id": "13626152646237",
+                "name": "agua",
+                "porcentage": 60,
+                "price": 60
+            }
+        ],
+        "totalRound": [
+            {
+                "id": "6233230653564",
+                "PesoReceta": 200,
+                "price": 900
+            },
+            {
+                "id": "26760561153552",
+                "PesoReceta": 22,
+                "price": 1200
+            },
+            {
+                "id": "17651651642176",
+                "PesoReceta": 4,
+                "price": 300
+            },
+            {
+                "id": "13626152646237",
+                "PesoReceta": 133,
+                "price": 60
+            }
+        ],
+        "totalPrice": [
+            {
+                "id": "6233230653564",
+                "precioReceta": 180
+            },
+            {
+                "id": "26760561153552",
+                "precioReceta": 26.4
+            },
+            {
+                "id": "17651651642176",
+                "precioReceta": 1.2
+            },
+            {
+                "id": "13626152646237",
+                "precioReceta": 7.98
+            }
+        ]
+    }
+]

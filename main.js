@@ -1,3 +1,4 @@
+// dark mode
 // funciones crear ingredientes
 let ingredients = [];
 const ingredientForm = document.getElementById('ingredient-form');
@@ -9,6 +10,7 @@ const btnAddSelectedIngredient = document.getElementById('add-selected-ingredien
 const ingredientsRecipe = document.getElementById('ingredients-recipe');
 const recipeForm = document.getElementById('recipeForm')
 const btnCreateRecipe = document.getElementById('create-recipe')
+
 
 
 const createIngredient = (ingredientId, ingredientType, ingredientName, ingredientPrice) => {
@@ -194,8 +196,8 @@ const showRecipes = () => {
         const div = document.createElement("div");
         div.className = "table-responsive";
         div.innerHTML = `
-        <table class="table table-success table-hover">
-            <thead class="table-dark">
+        <table class="table table-striped table-hover">
+            <thead class="table-active">
                 <tr>
                     <th>Nombre receta:</th>
                     <th colspan="4">${recipe.id}</th>
@@ -319,7 +321,80 @@ btnCreateRecipe.addEventListener('click', (e) => {
     showRecipes()
 });
 
-// mostrar recetario
+// mostrar recetas de ejemplo
+
+const containerRecipesExamples = document.getElementById('imprimir-recetas-random')
+const btnShowRecipeExamples = document.getElementById('show-recipe-examples')
+
+const printExamples = async () => {
+    const response = await fetch("./randomRecipes.json");
+    const randomRecipes = await response.json();
+    containerRecipesExamples.innerHTML='';
+    randomRecipes.forEach(recipe => {
+        const div = document.createElement("div");
+        div.className = "table-responsive";
+        div.innerHTML = `
+        <table class="table table-striped table-hover">
+            <thead class="table-active">
+                <tr>
+                    <th>Nombre receta:</th>
+                    <th colspan="4">${recipe.id}</th>
+                </tr>
+                <tr>
+                    <th>Gramaje:</th>
+                    <th colspan="4">${recipe.recipeGrams}</th>
+                </tr>
+                <tr>
+                    <th>Unidades:</th>
+                    <th colspan="4">${recipe.recipeUnits}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>Id:</th>
+                    <th>Ingredientes:</th>
+                    <th>Porcentaje:</th>
+                    <th>Peso de ingrediente:</th>
+                    <th>Costo de ingrediente:</th>
+                </tr>
+                ${recipe.recipeIngredients.map(ingredient => `
+                    <tr>
+                        <td>${ingredient.id}</td>
+                        <td>${ingredient.name}</td>
+                        <td>${ingredient.porcentage}%</td>
+                        <td>${recipe.totalRound.find(item => item.id === ingredient.id).PesoReceta}</td>
+                        <td>$${recipe.totalPrice.find(item => item.id === ingredient.id).precioReceta.toFixed(1)}</td>
+                    </tr>
+                `).join('')}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td><button class="btn btn-danger" id="${recipe.id}" >borrar receta</button></td>
+                    <th colspan="2">Totales: </th>
+                    <th>Peso de la receta: ${recipe.totalRound.reduce((acc, item) => acc + item.PesoReceta, 0)} gramos</th>
+                    <th>Costo total: $${recipe.totalPrice.reduce((acc, item) => acc + item.precioReceta, 0).toFixed(2)}</th>
+                </tr>
+
+            </tfoot>
+        </table>
+        `;
+        containerRecipesExamples.appendChild(div);
+    });
+};
+
+btnShowRecipeExamples.addEventListener('click', () => {
+    Toastify({
+        text: "Los ejemplos de recetas, han sido añadidos, echa un ojo para inspirarte.😉",
+        duration: 6000,
+        position: "center",
+        style: {
+            background: "blue"
+        }
+    }).showToast();
+    printExamples();
+})
+
+// mostrar recetario creado
 
 const printRecipe = document.getElementById('imprimir-container');
 
@@ -347,3 +422,4 @@ printRecipe.addEventListener('click', (e) => {
         }
     }).showToast();
 });
+
