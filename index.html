@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- styles -->
     <link rel="stylesheet" href="./public/styles.css">
+    <!-- CDN SWEETALERT -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- CDN toastify -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
@@ -30,6 +32,12 @@
     </header>
     <main>
         <section class="container-fluid text-center justify-content-center">
+            <div class="container mt-4 text-start">
+                <p>
+                    Bienvenido a Chefsplanner. En esta aplicación puedes crear recetas a partir de una base de datos de ingredientes que tu mismo ingreses. Por ahora, esta recetas no calculan un rendimiento final despues de la cocción por lo que te recomiendo que el valor final del peso de la receta lo vayas ajustanto tu mismo para que coincida con lo que buscas preparar. En actualizaciones futuras se planea añadir esta opción.</p>
+                <p>Todas las recetas serán almacenadas en el localStorage de tu navegador hasta que decidas eliminar el historial o el Storage de esta aplicación.</p>
+                <p>Si nunca has creado una receta te dejo unos ejemplos más abajo 😉. <a href="#show-recipe-examples"><button class="btn btn-info">Mostrar</button></a></p>
+            </div>
             <h2 data-bs-theme="dark" class="mt-4">Ingredientes</h2>
             <div class="container text-start mt-4">
                 <p data-bs-theme="dark">Esta será la base de datos de tus ingredientes. Aquí podras asignarle un tipo, un nombre y un precio a los ingredientes que quieras usar en tus recetas. Has click en ingresar para guardarlos en tu localStorage de tu navegador.</p>
@@ -105,16 +113,19 @@
                 <table class="table table-striped">
                     <thead class="table-active">
                         <tr>
-                            <th colspan="2"><label>Nombre:</label>
+                            <th colspan="2">
+                                <label class="pb-2">Nombre:</label>
                                 <input class="form-control" id="name-recipe" name="name-recipe" type="text" required></th>
                             <th colspan="3"><button id="create-recipe" class="btn btn-success" type="submit">Crear Receta</button></th>
                         </tr>
                     </thead>
                     <thead class="table-active">
                         <tr>
-                            <th colspan="2"><label>Gramaje:</label>
+                            <th colspan="2">
+                                <label class="pb-2">Gramaje:</label>
                                 <input class="form-control" id="grams-recipe" name="grams-recipe" type="number" required></th>
-                            <th colspan="3"><label>Unidades:</label>
+                            <th colspan="3">
+                                <label class="pb-2">Unidades:</label>
                                 <input class="form-control" id="units-recipe" name="units-recipe" type="number" required></th>
                         </tr>
                     </thead>
@@ -144,9 +155,11 @@
                 </form>
             </div>
         </section>
-        <section class="container-fluid text-center">
+        <section class="container text-center">
             <h2 class="mt-4">Ejemplos de Recetas</h2>
-            <div class="mt-4"><button id="show-recipe-examples" class="btn btn-info" >Ver</button></div>
+            <div class="mt-4">
+                <p class="text-start">Haz click para mostrar ejemplos. Tambien podrás ver el formato en el que se muestran las recetas despues de que las crees.</p>
+                <button id="show-recipe-examples" class="btn btn-info" >Ver</button></div>
             <div id="imprimir-recetas-random" class="container mt-4">
                 <!-- render random recipes -->
             </div>
@@ -157,13 +170,17 @@
                 <!-- render recetas -->
             </div>
         </section>
-         <footer class="footer">
+        <footer class="footer">
             <div class="container text-center">
                 <p>
-                    Chefs Planner fue creado por Camilo Medina. Todos los derechos reservados.
+                    Chef's Planner fue creado por Camilo Medina. Todos los derechos reservados.
                 </p>
             </div>
-         </footer>
+            <div class="container text-center">
+                <p>Sigueme en Github.</p>
+                <a href="https://github.com/Dashcamed" target="_blank"><img src="./assets/icons8-github.svg" alt="github"></a>
+            </div>
+        </footer>
     </main>
     <script>
         function darkMode() {

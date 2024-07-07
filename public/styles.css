@@ -1,4 +1,8 @@
 /* The switch - the box around the slider */
+html {
+  scroll-behavior: smooth;
+}
+
 .switch-container {
   position: relative;
   display: inline-block;

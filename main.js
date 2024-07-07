@@ -10,6 +10,7 @@ const btnAddSelectedIngredient = document.getElementById('add-selected-ingredien
 const ingredientsRecipe = document.getElementById('ingredients-recipe');
 const recipeForm = document.getElementById('recipeForm')
 const btnCreateRecipe = document.getElementById('create-recipe')
+const printRecipe = document.getElementById('imprimir-container');
 
 
 
@@ -35,7 +36,7 @@ const addIngredient = (ingredient) => {
         <td>${ingredient.type}</td>
         <td>${ingredient.name}</td>
         <td>${ingredient.price}</td>
-        <td><button class="btn btn-danger" id="${ingredient.id}" >delete</button></td>
+        <td><button class="btn btn-danger" id="${ingredient.id}" >Borrar</button></td>
     `;
     ingredientList.appendChild(tr);
 
@@ -118,6 +119,7 @@ ingredientForm.addEventListener('submit', (e) => {
         text: "¡Ingrediente Agregado!",
         duration: 3000,
         position: "center",
+        gravity: "bottom",
         style: {
             background: "green"
         }
@@ -126,16 +128,26 @@ ingredientForm.addEventListener('submit', (e) => {
 });
 
 ingredientList.addEventListener('click', (e) => {
-    deleteIngredient(e.target.id)
-    Toastify({
-        text: "¡Ingrediente eliminado permanentemente!",
-        duration: 3000,
-        position: "center",
-        style: {
-            background: "red"
+    Swal.fire({
+        title: "¿Estás seguro que deseas borrar el ingrediente😥?",
+        text: "Si tienes este ingrediente asignado a alguna receta, puede causar conflictos internos. Esta acción no se puede revertir...",
+        icon: "warning",
+        background: "#b0b0b0",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si, borrar ingrediente."
+    }).then((result) => {
+        if (result.isConfirmed) {
+            deleteIngredient(e.target.id)
+        Swal.fire({
+            title: "¡Borrado!",
+            text: "Tu ingrediente ha sido borrado.",
+            icon: "success",
+            background: "#b0b0b0"
+        });
         }
-    }
-    ).showToast();
+    });
 });
 
 
@@ -164,18 +176,21 @@ const addSelectedIngredient = () => {
     console.log(tr)
 };
 // listener add ingredients
-btnAddSelectedIngredient.addEventListener('click', () => {
+btnAddSelectedIngredient.addEventListener('click', (e) => {
+    e.preventDefault()
     addSelectedIngredient()
     Toastify({
         text: "Ingrediente agregado de tu lista. Ahora, agrega sus porcentajes.",
         duration: 5000,
         position: "center",
+        gravity: "bottom",
         style: {
             background: "green"
         }
     }).showToast()
 });
 
+// create recipes
 const createRecipe = (recipeName, recipeGrams, recipeUnits, recipeIngredients) => {
     return {
         id: recipeName,
@@ -267,14 +282,47 @@ btnCreateRecipe.addEventListener('click', (e) => {
     const recipeName = form.get('name-recipe');
     const recipeGrams = form.get('grams-recipe');
     const recipeUnits = form.get('units-recipe');
+
+    if (!recipeName || !recipeGrams || !recipeUnits) {
+        Toastify({
+            text: "¡Rellena la informacion de la receta!",
+            duration: 3000,
+            position: "center",
+            gravity: "bottom",
+            style: {
+                background: "red"
+            }
+        }).showToast();
+        return;
+    }
+
     let recipeIngredients = [];
+    let validIngredients = true;
 
     document.querySelectorAll('.tr-ingredients').forEach((tr) => {
         const ingredientName = tr.querySelector('td:first-child').innerText;
         const ingredient = ingredients.find(ing => ing.name === ingredientName);
         const porcentage = tr.querySelector('.porcentage-ingredient').value;
+
+        if (!porcentage) {
+            validIngredients = false;
+        }
+
         recipeIngredients.push({ id: ingredient.id, name: ingredient.name, porcentage: Number(porcentage), price: ingredient.price});
     });
+
+    if (!validIngredients) {
+        Toastify({
+            text: "¡Rellena los porcentajes de la receta!",
+            duration: 3000,
+            position: "center",
+            gravity: "bottom",
+            style: {
+                background: "red"
+            }
+        }).showToast();
+        return;
+    }
 
     const totalPercentage = recipeIngredients.reduce((acc, item) => acc + item.porcentage, 0);
     console.log(totalPercentage);
@@ -314,12 +362,51 @@ btnCreateRecipe.addEventListener('click', (e) => {
         text: "¡Receta creada exitosamente!",
         duration: 3000,
         position: "center",
+        gravity: "bottom",
         style: {
             background: "blue"
         }
     }).showToast();
-    showRecipes()
+
+    showRecipes();
 });
+
+//borrar recetario creado
+
+const deleteRecipe = (id) => {
+    recipes.forEach((recipe, index) => {
+        if (recipe.id === id) {
+            recipes.splice(index, 1);
+        }
+    });
+    saveRecipeStorage(recipes);
+    showRecipes();
+};
+
+printRecipe.addEventListener('click', (e) => {
+    Swal.fire({
+        title: "¿Estás seguro que deseas borrar la receta?",
+        text: "No podras deshacer esta acción 😥",
+        icon: "warning",
+        background: "#b0b0b0",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si, borrar receta."
+    }).then((result) => {
+        if (result.isConfirmed) {
+            deleteRecipe(e.target.id)
+        Swal.fire({
+            title: "¿¡Borrada!",
+            text: "Tu receta fue borrada.",
+            icon: "success",
+            background: "#b0b0b0",
+        });
+        }
+    });
+});
+
+
 
 // mostrar recetas de ejemplo
 
@@ -369,7 +456,7 @@ const printExamples = async () => {
             </tbody>
             <tfoot>
                 <tr>
-                    <td><button class="btn btn-danger" id="${recipe.id}" >borrar receta</button></td>
+                    <td><button class="btn btn-danger" id="${recipe.id}">borrar receta</button></td>
                     <th colspan="2">Totales: </th>
                     <th>Peso de la receta: ${recipe.totalRound.reduce((acc, item) => acc + item.PesoReceta, 0)} gramos</th>
                     <th>Costo total: $${recipe.totalPrice.reduce((acc, item) => acc + item.precioReceta, 0).toFixed(2)}</th>
@@ -387,39 +474,10 @@ btnShowRecipeExamples.addEventListener('click', () => {
         text: "Los ejemplos de recetas, han sido añadidos, echa un ojo para inspirarte.😉",
         duration: 6000,
         position: "center",
+        gravity:"bottom",
         style: {
             background: "blue"
         }
     }).showToast();
     printExamples();
 })
-
-// mostrar recetario creado
-
-const printRecipe = document.getElementById('imprimir-container');
-
-const btnPrintRecipes = document.getElementById('print-recipes');
-
-
-const deleteRecipe = (id) => {
-    recipes.forEach((recipe, index) => {
-        if (recipe.id === id) {
-            recipes.splice(index, 1);
-        }
-    });
-    saveRecipeStorage(recipes);
-    showRecipes();
-};
-
-printRecipe.addEventListener('click', (e) => {
-    deleteRecipe(e.target.id)
-    Toastify({
-        text: "¡Receta eliminada permanentemente!",
-        duration: 3000,
-        position: "center",
-        style: {
-            background: "red"
-        }
-    }).showToast();
-});
-
