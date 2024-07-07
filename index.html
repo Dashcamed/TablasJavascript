@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="light">
+<html lang="en" data-bs-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,14 +30,14 @@
     </header>
     <main>
         <section class="container-fluid text-center justify-content-center">
-            <h2 data-bs-theme="dark">Ingredientes</h2>
-            <div class="container text-start">
+            <h2 data-bs-theme="dark" class="mt-4">Ingredientes</h2>
+            <div class="container text-start mt-4">
                 <p data-bs-theme="dark">Esta será la base de datos de tus ingredientes. Aquí podras asignarle un tipo, un nombre y un precio a los ingredientes que quieras usar en tus recetas. Has click en ingresar para guardarlos en tu localStorage de tu navegador.</p>
             </div>
-            <div class="container table-responsive">
+            <div class="container table-responsive mt-4">
                 <form id="ingredient-form">
                 <table class="table table-striped">
-                    <thead>
+                    <thead class="table-active">
                         <tr>
                             <th>Tipo</th>
                             <th>Ingrediente</th>
@@ -48,7 +48,7 @@
                     <tbody>
                             <tr>
                                 <td>
-                                    <select id="form-select" name="form-select" required>
+                                    <select class="form-select" id="form-select" name="form-select" required>
                                         <option value="abarrotes">Abarrotes</option>
                                         <option value="lácteos">Lácteos</option>
                                         <option value="proteinas">Proteinas</option>
@@ -58,10 +58,10 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <input id="ingredient-name" name="ingredient-name" type="text" placeholder="Ej: Arroz" required>
+                                    <input class="form-control" id="ingredient-name" name="ingredient-name" type="text" placeholder="Ej: Arroz" required>
                                 </td>
                                 <td>
-                                    <input id="ingredient-price" name="ingredient-price" type="number" placeholder="Ej: 1400" required>
+                                    <input class="form-control" id="ingredient-price" name="ingredient-price" type="number" placeholder="Ej: 1400" required>
                                 </td>
                                 <td>
                                     <button class="btn btn-success" type="submit">Ingresar</button>
@@ -70,10 +70,10 @@
                     </tbody>
                 </table>
                 </form>
-            </div>
-            <div class="container table-responsive">
+            </div>s
+            <div class="container table-responsive mt-4">
                 <table class="table table-striped">
-                    <thead>
+                    <thead class="table-active">
                         <tr>
                             <th>Id</th>
                             <th>Tipo</th>
@@ -99,26 +99,26 @@
         </section>
         <!-- -----------------CREAR RECETAS------------- -->
         <section class="container-fluid text-center">
-            <h2>Crear Receta</h2>
-            <div class="container table-responsive">
+            <h2 class="mt-4">Crear Receta</h2>
+            <div class="container table-responsive mt-4">
                 <form id="recipeForm">
                 <table class="table table-striped">
-                    <thead>
+                    <thead class="table-active">
                         <tr>
                             <th colspan="2"><label>Nombre:</label>
-                                <input id="name-recipe" name="name-recipe" type="text" required></th>
+                                <input class="form-control" id="name-recipe" name="name-recipe" type="text" required></th>
                             <th colspan="3"><button id="create-recipe" class="btn btn-success" type="submit">Crear Receta</button></th>
                         </tr>
                     </thead>
-                    <thead>
+                    <thead class="table-active">
                         <tr>
                             <th colspan="2"><label>Gramaje:</label>
-                                <input id="grams-recipe" name="grams-recipe" type="number" required></th>
+                                <input class="form-control" id="grams-recipe" name="grams-recipe" type="number" required></th>
                             <th colspan="3"><label>Unidades:</label>
-                                <input id="units-recipe" name="units-recipe" type="number" required></th>
+                                <input class="form-control" id="units-recipe" name="units-recipe" type="number" required></th>
                         </tr>
                     </thead>
-                    <thead>
+                    <thead class="table-active">
                         <tr class="text-center">
                             <th colspan="5">Selecciona tus ingredientes
                                 <select id="selector-ingredientes" class="btn btn-secondary" name="">
@@ -145,18 +145,25 @@
             </div>
         </section>
         <section class="container-fluid text-center">
-            <h2>Ejemplos de Recetas</h2>
-            <div><button id="show-recipe-examples" class="btn btn-info" >Ver</button></div>
-            <div id="imprimir-recetas-random" class="container mt-3">
+            <h2 class="mt-4">Ejemplos de Recetas</h2>
+            <div class="mt-4"><button id="show-recipe-examples" class="btn btn-info" >Ver</button></div>
+            <div id="imprimir-recetas-random" class="container mt-4">
                 <!-- render random recipes -->
             </div>
         </section>
         <section class="container-fluid text-center mt-4">
-            <h2>Recetas creadas</h2>
-            <div id="imprimir-container" class="container mt-3">
+            <h2 class="mt-4">Recetas creadas</h2>
+            <div id="imprimir-container" class="container mt-4">
                 <!-- render recetas -->
             </div>
         </section>
+         <footer class="footer">
+            <div class="container text-center">
+                <p>
+                    Chefs Planner fue creado por Camilo Medina. Todos los derechos reservados.
+                </p>
+            </div>
+         </footer>
     </main>
     <script>
         function darkMode() {

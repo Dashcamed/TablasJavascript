@@ -152,7 +152,7 @@ const addSelectedIngredient = () => {
     tr.className = "tr-ingredients"
     tr.innerHTML = `
     <td>${selectedIngredient.name}</td>
-    <td><input class="porcentage-ingredient" type="number" name="porcentage-ingredient" required></td>
+    <td><input class="porcentage-ingredient form-control" type="number" name="porcentage-ingredient" required></td>
     <td class="ingredient-grams">0</td>
     <td class="ingredient-price">${selectedIngredient.price}</td>
     <td><button class="btn btn-danger delete-added-ingredient">-</button></td>
