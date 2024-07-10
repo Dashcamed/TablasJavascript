@@ -36,7 +36,8 @@
                 <p>
                     Bienvenido a Chefsplanner. En esta aplicación puedes crear recetas a partir de una base de datos de ingredientes que tu mismo ingreses. Por ahora, esta recetas no calculan un rendimiento final despues de la cocción por lo que te recomiendo que el valor final del peso de la receta lo vayas ajustanto tu mismo para que coincida con lo que buscas preparar. En actualizaciones futuras se planea añadir esta opción.</p>
                 <p>Todas las recetas serán almacenadas en el localStorage de tu navegador hasta que decidas eliminar el historial o el Storage de esta aplicación.</p>
-                <p>Si nunca has creado una receta te dejo unos ejemplos más abajo 😉. <a href="#show-recipe-examples"><button class="btn btn-info">Mostrar</button></a></p>
+                <p>Si nunca has creado una receta te dejo unos ejemplos más abajo 😉. </p>
+                <a href="#show-recipe-examples"><button class="btn btn-info">Mostrar</button></a>
             </div>
             <h2 data-bs-theme="dark" class="mt-4">Ingredientes</h2>
             <div class="container text-start mt-4">
@@ -54,31 +55,32 @@
                         </tr>
                     </thead>
                     <tbody>
-                            <tr>
-                                <td>
-                                    <select class="form-select" id="form-select" name="form-select" required>
-                                        <option value="abarrotes">Abarrotes</option>
-                                        <option value="lácteos">Lácteos</option>
-                                        <option value="proteinas">Proteinas</option>
-                                        <option value="verduras">Verduras</option>
-                                        <option value="liquidos">Liquidos</option>
-                                        <option value="insumo de cocina">Insumo de cocina</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <input class="form-control" id="ingredient-name" name="ingredient-name" type="text" placeholder="Ej: Arroz" required>
-                                </td>
-                                <td>
-                                    <input class="form-control" id="ingredient-price" name="ingredient-price" type="number" placeholder="Ej: 1400" required>
-                                </td>
-                                <td>
-                                    <button class="btn btn-success" type="submit">Ingresar</button>
-                                </td>
-                            </tr>
+                        <tr>
+                            <td>
+                                <select class="form-select" id="form-select" name="form-select" required>
+                                    <option value="abarrotes">Abarrotes</option>
+                                    <option value="lácteos">Lácteos</option>
+                                    <option value="proteinas">Proteinas</option>
+                                    <option value="verduras">Verduras</option>
+                                    <option value="verduras">Frutas</option>
+                                    <option value="liquidos">Liquidos</option>
+                                    <option value="insumo de cocina">Insumo de cocina</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input class="form-control" id="ingredient-name" name="ingredient-name" type="text" placeholder="Ej: Arroz" required>
+                            </td>
+                            <td>
+                                <input class="form-control" id="ingredient-price" name="ingredient-price" type="number" placeholder="Ej: 1400" required>
+                            </td>
+                            <td>
+                                <button class="btn btn-success" type="submit">Ingresar</button>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
                 </form>
-            </div>s
+            </div>
             <div class="container table-responsive mt-4">
                 <table class="table table-striped">
                     <thead class="table-active">
@@ -155,6 +157,41 @@
                 </form>
             </div>
         </section>
+                <!--------- convertidor de recetas de la abuela ------>
+                <section class="container-fluid text-center">
+                    <h2 class="mt-4">Convertidor de recetas de la abuela</h2>
+                    <div class="container table-responsive mt-4">
+                        <form id="ingredient-form-converter">
+                        <table class="table table-striped">
+                            <thead class="table-active">
+                                <tr class="text-center">
+                                    <th colspan="3">Selecciona tus ingredientes
+                                        <select id="selector-ingredientes-1" class="btn btn-secondary" name="">
+                                            <option value=""></option>
+                                        </select>
+                                        <button id="add-selected-ingredient-1" class="btn btn-success" type="submit">Agregar</button>
+                                    </th>
+                                    <th><button id="calculate-recipe" class="btn btn-success" type="submit">Calcular</button></th>
+                                </tr>
+                                <tr>
+                                    <th>Ingrediente</th>
+                                    <th>Gramos de tu receta</th>
+                                    <th>Porcentajes Finales</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="ingredients-recipe-converter">
+                                <!-- render ingredients for recipe converter-->
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th colspan="4"><label>Total Peso de la receta <span id="totalGramsToConvert"></span></label></th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        </form>
+                    </div>
+                </section>
         <section class="container text-center">
             <h2 class="mt-4">Ejemplos de Recetas</h2>
             <div class="mt-4">
@@ -184,7 +221,7 @@
     </main>
     <script>
         function darkMode() {
-        var element = document.body;
+        let element = document.body;
         element.dataset.bsTheme =
         element.dataset.bsTheme == "light" ? "dark" : "light";}
         </script>
