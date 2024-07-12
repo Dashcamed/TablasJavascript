@@ -34,14 +34,14 @@
         <section class="container-fluid text-center justify-content-center">
             <div class="container mt-4 text-start">
                 <p>
-                    Bienvenido a Chefsplanner. En esta aplicación puedes crear recetas a partir de una base de datos de ingredientes que tu mismo ingreses. Por ahora, esta recetas no calculan un rendimiento final despues de la cocción por lo que te recomiendo que el valor final del peso de la receta lo vayas ajustanto tu mismo para que coincida con lo que buscas preparar. En actualizaciones futuras se planea añadir esta opción.</p>
-                <p>Todas las recetas serán almacenadas en el localStorage de tu navegador hasta que decidas eliminar el historial o el Storage de esta aplicación.</p>
+                    Bienvenido a Chefsplanner. En esta aplicación puedes crear recetas a partir de una base de datos de ingredientes que tu mismo ingreses. Por ahora, esta recetas no calculan un rendimiento final despues de la cocción por lo que te recomiendo que el valor final del peso de la receta, lo vayas ajustando tu mismo para que coincida con lo que buscas preparar. En actualizaciones futuras se planea añadir esta opción.</p>
+                <p>Todas las recetas serán almacenadas en el localStorage de tu navegador hasta que decidas eliminar el historial o el LocalStorage de esta aplicación.</p>
                 <p>Si nunca has creado una receta te dejo unos ejemplos más abajo 😉. </p>
-                <a href="#show-recipe-examples"><button class="btn btn-info">Mostrar</button></a>
+                <a href="#show-recipe-examples"><button class="btn btn-info">Mostrar ejemplos</button></a>
             </div>
             <h2 data-bs-theme="dark" class="mt-4">Ingredientes</h2>
             <div class="container text-start mt-4">
-                <p data-bs-theme="dark">Esta será la base de datos de tus ingredientes. Aquí podras asignarle un tipo, un nombre y un precio a los ingredientes que quieras usar en tus recetas. Has click en ingresar para guardarlos en tu localStorage de tu navegador.</p>
+                <p data-bs-theme="dark">Esta será la base de datos de tus ingredientes. Aquí podras asignarle un <strong>tipo</strong>, un <strong>nombre</strong> y un <strong>precio</strong> a los ingredientes de tus recetas. Has click en ingresar para guardarlos en el localStorage de tu navegador.</p>
             </div>
             <div class="container table-responsive mt-4">
                 <form id="ingredient-form">
@@ -58,13 +58,13 @@
                         <tr>
                             <td>
                                 <select class="form-select" id="form-select" name="form-select" required>
-                                    <option value="abarrotes">Abarrotes</option>
-                                    <option value="lácteos">Lácteos</option>
-                                    <option value="proteinas">Proteinas</option>
-                                    <option value="verduras">Verduras</option>
-                                    <option value="verduras">Frutas</option>
-                                    <option value="liquidos">Liquidos</option>
-                                    <option value="insumo de cocina">Insumo de cocina</option>
+                                    <option value="Abarrotes">Abarrotes</option>
+                                    <option value="Lácteos">Lácteos</option>
+                                    <option value="Proteinas">Proteinas</option>
+                                    <option value="Verduras">Verduras</option>
+                                    <option value="Frutas">Frutas</option>
+                                    <option value="Liquidos">Liquidos</option>
+                                    <option value="Insumo de cocina">Insumo de cocina</option>
                                 </select>
                             </td>
                             <td>
@@ -110,6 +110,9 @@
         <!-- -----------------CREAR RECETAS------------- -->
         <section class="container-fluid text-center">
             <h2 class="mt-4">Crear Receta</h2>
+            <div class="container text-start">
+                <p>Si tu receta no esta calculada en porcentajes, ve al módulo de <a href="#convertidor-de-recetas-de-la-abuela">Convertidor de recetas de la abuela</a> para pasarla a porcentajes. De lo contrario empieza a crear tu receta aquí 🍰.</p>
+            </div>
             <div class="container table-responsive mt-4">
                 <form id="recipeForm">
                 <table class="table table-striped">
@@ -159,7 +162,10 @@
         </section>
                 <!--------- convertidor de recetas de la abuela ------>
                 <section class="container-fluid text-center">
-                    <h2 class="mt-4">Convertidor de recetas de la abuela</h2>
+                    <h2 id="convertidor-de-recetas-de-la-abuela" class="mt-4">Convertidor de recetas de la abuela</h2>
+                    <div class="container text-start mt-4">
+                        <p>En esta tabla puedes calcular los porcentajes de cada ingrediente en una receta. Al pasar los gramajes a porcentajes generamos un cálculo más preciso y entendemos las proporciones de cada ingrediente. Este proceso es indispensable para usar la sección "Crear receta". Primero debes agregar los ingredientes de la base de datos y su peso en gramos. Presiona click en calcular y vuelve al módulo de crear receta para que comiences a crear tu receta personalizada 😉.</p>
+                    </div>
                     <div class="container table-responsive mt-4">
                         <form id="ingredient-form-converter">
                         <table class="table table-striped">
@@ -195,7 +201,7 @@
         <section class="container text-center">
             <h2 class="mt-4">Ejemplos de Recetas</h2>
             <div class="mt-4">
-                <p class="text-start">Haz click para mostrar ejemplos. Tambien podrás ver el formato en el que se muestran las recetas despues de que las crees.</p>
+                <p class="text-start">Haz click para mostrar ejemplos. Tambien podrás ver el formato en el que se muestran las recetas despues de que las hayas creado.</p>
                 <button id="show-recipe-examples" class="btn btn-info" >Ver</button></div>
             <div id="imprimir-recetas-random" class="container mt-4">
                 <!-- render random recipes -->
