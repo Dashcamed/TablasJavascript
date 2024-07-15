@@ -16,30 +16,58 @@
 </head>
 <body>
     <header>
-    <nav class="navbar bg-secondary">
+    <nav class="navbar fixed-top bg-secondary">
         <div class="container">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="./index.html">
                 <img src="./assets/Chef’s Planner logo sin colores.png" alt="Logo" width="50" height="50"
                     class="d-inline-block align-text-center">
             </a>
             <h2>Chefsplanner</h2>
-            <label class="switch-container">
-                <input type="checkbox" role="switch" checked onclick="darkMode()">
-                <span class="slider"></span>
-            </label>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="./index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#Ingredients-data">Ingredientes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#recipes-creator">Crear Receta</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#recipes-converter">Convertidor de Recetas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#recipe-examples">Ejemplos de recetas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#created-recipes">Recetas Creadas</a>
+                    </li>
+                    </ul>
+                    <div class="d-inline-flex align-items-center">
+                        <h6>Darkmode</h6>
+                        <label class="switch-container mx-3">
+                            <input type="checkbox" role="switch" checked onclick="darkMode()">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+            </div>
         </div>
     </nav>
     </header>
     <main>
-        <section class="container-fluid text-center justify-content-center">
+        <section class="container-fluid text-center justify-content-center" style="padding-block: 70px;">
             <div class="container mt-4 text-start">
                 <p>
                     Bienvenido a Chefsplanner. En esta aplicación puedes crear recetas a partir de una base de datos de ingredientes que tu mismo ingreses. Por ahora, esta recetas no calculan un rendimiento final despues de la cocción por lo que te recomiendo que el valor final del peso de la receta, lo vayas ajustando tu mismo para que coincida con lo que buscas preparar. En actualizaciones futuras se planea añadir esta opción.</p>
                 <p>Todas las recetas serán almacenadas en el localStorage de tu navegador hasta que decidas eliminar el historial o el LocalStorage de esta aplicación.</p>
                 <p>Si nunca has creado una receta te dejo unos ejemplos más abajo 😉. </p>
-                <a href="#show-recipe-examples"><button class="btn btn-info">Mostrar ejemplos</button></a>
+                <a href="#recipe-examples"><button class="btn btn-info">Mostrar ejemplos</button></a>
             </div>
-            <h2 data-bs-theme="dark" class="mt-4">Ingredientes</h2>
+            <h2 id="Ingredients-data" data-bs-theme="dark" class="mt-4" style="padding-top: 80px;">Ingredientes</h2>
             <div class="container text-start mt-4">
                 <p data-bs-theme="dark">Esta será la base de datos de tus ingredientes. Aquí podras asignarle un <strong>tipo</strong>, un <strong>nombre</strong> y un <strong>precio</strong> a los ingredientes de tus recetas. Has click en ingresar para guardarlos en el localStorage de tu navegador.</p>
             </div>
@@ -108,10 +136,10 @@
             </div>
         </section>
         <!-- -----------------CREAR RECETAS------------- -->
-        <section class="container-fluid text-center">
+        <section id="recipes-creator" class="container-fluid text-center" style="padding-block: 70px;">
             <h2 class="mt-4">Crear Receta</h2>
             <div class="container text-start">
-                <p>Si tu receta no esta calculada en porcentajes, ve al módulo de <a href="#convertidor-de-recetas-de-la-abuela">Convertidor de recetas de la abuela</a> para pasarla a porcentajes. De lo contrario empieza a crear tu receta aquí 🍰.</p>
+                <p>Si tu receta no esta calculada en porcentajes, ve al módulo de <a href="#recipes-converter">Convertidor de recetas de la abuela</a> para pasarla a porcentajes. De lo contrario empieza a crear tu receta aquí 🍰.</p>
             </div>
             <div class="container table-responsive mt-4">
                 <form id="recipeForm">
@@ -161,7 +189,7 @@
             </div>
         </section>
                 <!--------- convertidor de recetas de la abuela ------>
-                <section class="container-fluid text-center">
+                <section id="recipes-converter" class="container-fluid text-center" style="padding-block: 70px;">
                     <h2 id="convertidor-de-recetas-de-la-abuela" class="mt-4">Convertidor de recetas de la abuela</h2>
                     <div class="container text-start mt-4">
                         <p>En esta tabla puedes calcular los porcentajes de cada ingrediente en una receta. Al pasar los gramajes a porcentajes generamos un cálculo más preciso y entendemos las proporciones de cada ingrediente. Este proceso es indispensable para usar la sección "Crear receta". Primero debes agregar los ingredientes de la base de datos y su peso en gramos. Presiona click en calcular y vuelve al módulo de crear receta para que comiences a crear tu receta personalizada 😉.</p>
@@ -198,7 +226,8 @@
                         </form>
                     </div>
                 </section>
-        <section class="container text-center">
+                <!-- recipe examples------------- -->
+        <section id="recipe-examples" class="container text-center" style="padding-block: 70px;" >
             <h2 class="mt-4">Ejemplos de Recetas</h2>
             <div class="mt-4">
                 <p class="text-start">Haz click para mostrar ejemplos. Tambien podrás ver el formato en el que se muestran las recetas despues de que las hayas creado.</p>
@@ -207,7 +236,8 @@
                 <!-- render random recipes -->
             </div>
         </section>
-        <section class="container-fluid text-center mt-4">
+        <!-- created recipes -->
+        <section id="created-recipes" class="container-fluid text-center mt-4">
             <h2 class="mt-4">Recetas creadas</h2>
             <div id="imprimir-container" class="container mt-4">
                 <!-- render recetas -->

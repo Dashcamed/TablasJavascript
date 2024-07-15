@@ -46,6 +46,11 @@ html {
   height: 0;
 }
 
+.navbar .nav-link {
+  padding-block: 15px;
+  font-weight: bold;
+}
+
 .footer {
   padding-block: 30px;
 }/*# sourceMappingURL=styles.css.map */

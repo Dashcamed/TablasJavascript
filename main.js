@@ -1,3 +1,13 @@
+const navLinks = document.querySelectorAll('.nav-link');
+
+const collapse = document.getElementById('navbarNav');
+
+navLinks.forEach (link => {
+    link.addEventListener('click', () => {
+    collapse.classList.remove('show');
+    });
+});
+
 let ingredients = [];
 const ingredientForm = document.getElementById('ingredient-form');
 const ingredientList = document.getElementById('ingredients');
@@ -9,12 +19,12 @@ const ingredientsRecipe = document.getElementById('ingredients-recipe');
 const recipeForm = document.getElementById('recipeForm');
 const btnCreateRecipe = document.getElementById('create-recipe');
 const printRecipe = document.getElementById('imprimir-container');
-const containerRecipesExamples = document.getElementById('imprimir-recetas-random')
-const btnShowRecipeExamples = document.getElementById('show-recipe-examples')
+const containerRecipesExamples = document.getElementById('imprimir-recetas-random');
+const btnShowRecipeExamples = document.getElementById('show-recipe-examples');
 const selectorIngredientes1 = document.getElementById('selector-ingredientes-1');
-const btnAddSelectedIngredient1 = document.getElementById('add-selected-ingredient-1')
-const ingredientListConverter = document.getElementById('ingredients-recipe-converter')
-const ingredientListFormConverter = document.getElementById('ingredient-form-converter')
+const btnAddSelectedIngredient1 = document.getElementById('add-selected-ingredient-1');
+const ingredientListConverter = document.getElementById('ingredients-recipe-converter');
+const ingredientListFormConverter = document.getElementById('ingredient-form-converter');
 const btnRecipeConverter = document.getElementById('calculate-recipe');
 
 // funciones crear ingredientes
@@ -537,7 +547,8 @@ btnRecipeConverter.addEventListener('click', (e) => {
         const ingredient = ingredients.find(ing => ing.name === ingredientName);
         const gramsToCalculate = tr.querySelector('.grams-ingredient-converter').value;
 
-        if (isNaN(gramsToCalculate) || gramsToCalculate <= 0) {
+        if (!gramsToCalculate || gramsToCalculate <= 0) {
+            valid = false;
             Toastify({
                 text: "¡Debes ingresar un número para calcular la receta y debe ser positivo!",
                 duration: 4000,
@@ -547,13 +558,11 @@ btnRecipeConverter.addEventListener('click', (e) => {
                     background: "red"
                 }
             }).showToast();
-            valid = false;
             return;
         }
+        if (!valid) return;
 
         recipeToCalculate.push({ name: ingredient.name, grams: Number(gramsToCalculate)});
-
-        if (!valid) return;
 
         const totalGrams = recipeToCalculate.reduce((acc, item) => acc + item.grams, 0);
         const totalGramsToConvert = document.getElementById('totalGramsToConvert');
@@ -565,14 +574,14 @@ btnRecipeConverter.addEventListener('click', (e) => {
             const porcentage = ((item.grams / totalAmount) * 100).toFixed(1);
             document.querySelectorAll('.porcentage-ingredient-converter')[index].innerText = porcentage
         });
+        Toastify({
+            text: "¡Porcentajes Calculados!",
+            duration: 5000,
+            position: "center",
+            gravity: "bottom",
+            style: {
+                background: "green"
+            }
+        }).showToast();
     });
-    Toastify({
-        text: "¡Porcentajes Calculados!. Usa esos porcentajes en cada ingrediente de tu receta.",
-        duration: 5000,
-        position: "center",
-        gravity: "bottom",
-        style: {
-            background: "green"
-        }
-    }).showToast();
 });
